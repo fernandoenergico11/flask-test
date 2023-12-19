@@ -33,6 +33,25 @@
       <p class="text-uppercase">Comprar 2 Boletas</p>
       <h1>$100.000</h1>
     </label>
+
+   <form method="post" action="{{ url_for('generar_numeros') }}">
+        <button type="submit">COMPRAR</button>
+    </br>
+    </form>
+
+  {% if numeros %}
+    <div class="text-center">
+        <h2>NUMEROS BOLETA</h2>
+        <ul>
+            {% for numero in numeros %}
+            <div class="text-center">
+                <h1 style="text-align:center; color: #ffffff; font-size: 150px">{{ numero }}</h1>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+  
   
 </body>
 
