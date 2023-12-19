@@ -18,7 +18,7 @@ def generar_numeros():
 
     # Configuración de la conexión a la base de datos usando with statement
     try:
-        with pymysql.connect(host='https://databases-auth.000webhost.com/', user='id21685083_root', passwd='Energia11@', db='id21685083_bolsagana') as miConexion:
+        with pymysql.connect(host='bgumgxsdvc4biuaqa7lz-mysql.services.clever-cloud.com', user='un7kcgf6ih5t59l7', passwd='RaJQ617Jy7Nc9gcXvE90@', db='bgumgxsdvc4biuaqa7lz') as miConexion:
             cur = miConexion.cursor()
 
             # Obtener la cantidad total de registros en la tabla
