@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GANA YA</title>
+
+  <meta name="description" content="Rifas Martinez YZ 450">
+  <meta name="author" content="120RACING">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #ffffff, #ff1ed6, #d23bf4);
+
+     /* background: linear-gradient(to right, #ffffff); */
+      color: black;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 50px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+
+</head>
+
+
+<body>
+
+<!--IMPORTANTE: codigo que muestra numeros aletorios-->
+
+
+<div class="col-12 mt-4 col-lg-12">
+<div class="card text-center">
+<div class="card-body">
+    <h5 class="card-title azul text-blue text-uppercase"> 2 BOLETAS - MOTO YZ 450 </h5>
+    <hr>
+    <br>
+    <label>
+      <p class="text-uppercase">Comprar 2 Boletas</p>
+      <h1>$100.000</h1>
+    </label>
+
+
+    <form method="post" action="{{ url_for('generar_numeros') }}">
+        <button type="submit">COMPRAR</button>
+    </br>
+    </form>
+  </div>
+</div>
+</div>
+
+  {% if numeros %}
+    <div class="text-center">
+        <h2>NUMEROS BOLETA</h2>
+        <ul>
+            {% for numero in numeros %}
+            <div class="text-center">
+                <h1 style="text-align:center; color: #ffffff; font-size: 150px">{{ numero }}</h1>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+
