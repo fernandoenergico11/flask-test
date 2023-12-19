@@ -5,7 +5,7 @@ import pymysql
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def mostrar_numeros():
     return render_template('numeros.html')
 
 
