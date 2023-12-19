@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import pymysql
+import random
 
 app = Flask(__name__)
 
