@@ -32,50 +32,8 @@
 
 <body>
 
-<!--IMPORTANTE: codigo que muestra numeros aletorios-->
-
-
-<div class="col-12 mt-4 col-lg-12">
-<div class="card text-center">
-<div class="card-body">
     <h5 class="card-title azul text-blue text-uppercase"> 2 BOLETAS - MOTO YZ 450 </h5>
-    <hr>
-    <br>
-    <label>
-      <p class="text-uppercase">Comprar 2 Boletas</p>
-      <h1>$100.000</h1>
-    </label>
-
-
-    <form method="post" action="{{ url_for('generar_numeros') }}">
-        <button type="submit">COMPRAR</button>
-    </br>
-    </form>
-  </div>
-</div>
-</div>
-
-  {% if numeros %}
-    <div class="text-center">
-        <h2>NUMEROS BOLETA</h2>
-        <ul>
-            {% for numero in numeros %}
-            <div class="text-center">
-                <h1 style="text-align:center; color: #ffffff; font-size: 150px">{{ numero }}</h1>
-            </div>
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
-
-
-
-
-
-
-
-
-
+    
 </body>
 
 </html>
