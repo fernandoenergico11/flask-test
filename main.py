@@ -1,11 +1,9 @@
-import random
 from flask import Flask, render_template
-import pymysql
 
 app = Flask(__name__)
 
 @app.route('/')
-def mostrar_numeros():
+def index():
     return render_template('numeros.html')
 
 
