@@ -1,7 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ... (rest of the head section) -->
+
+  <!-- Add jQuery (make sure to include it before your custom script) -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+  <!-- Your custom script -->
+  <script>
+    $(document).ready(function() {
+      // Make the AJAX request when the document is ready
+      $.ajax({
+        url: 'https://flask-production-eccf.up.railway.app/',
+        type: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+          // Add any other headers if needed
+        },
+        success: function(response) {
+          // Handle the response here if needed
+          console.log(response);
+        },
+        error: function(error) {
+          // Handle errors here if needed
+          console.log(error);
+        }
+      });
+    });
+  </script>
+  
 </head>
 <body>
 
