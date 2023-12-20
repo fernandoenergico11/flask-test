@@ -12,7 +12,7 @@ def mostrar_numeros():
     cantidad_aleatorios = 2
 
     try:
-        with pymysql.connect(host='localhost', user='root', passwd='', db='bolsagana') as miConexion:
+        with pymysql.connect(host='bgumgxsdvc4biuaqa7lz-mysql.services.clever-cloud.com', user='un7kcgf6ih5t59l7', passwd='RaJQ617Jy7Nc9gcXvE90', db='bgumgxsdvc4biuaqa7lz') as miConexion:
             cur = miConexion.cursor()
 
             cur.execute("SELECT COUNT(*) FROM grupo WHERE estado=1")
