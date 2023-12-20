@@ -11,6 +11,32 @@
           'Access-Control-Allow-Origin': '*'
         }
       });
+
+      // Assuming you have a JavaScript array to store numbers
+      var numbersArray = [];
+
+      // Function to add a number to the array and update the display
+      function addNumber(number) {
+        numbersArray.push(number);
+
+        // Display the updated numbers
+        displayNumbers();
+      }
+
+      // Function to display numbers on the webpage
+      function displayNumbers() {
+        var $container = $('#numeros_obtenidos');
+        $container.empty();
+
+        // Iterate through the numbers array and append each number to the container
+        for (var i = 0; i < numbersArray.length; i++) {
+          var number = numbersArray[i];
+          $container.append('<h1 style="text-align:center; color: #4967ff; font-size: 150px">' + number + '</h1>');
+        }
+      }
+
+      // Example: Adding a number when the document is ready
+      addNumber(123);
     });
   </script>
 </head>
@@ -28,16 +54,9 @@
       </label>
 
       <!-- Display the numbers when loading -->
-      {% if numeros %}
-        <div class="text-center">
-          <h2>NUMEROS BOLETA</h2>
-          {% for numero in numeros %}
-            <div class="text-center">
-              <h1 style="text-align:center; color: #4967ff; font-size: 150px">{{ numero }}</h1>
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+      <div class="text-center" id="numeros_obtenidos">
+        <!-- Numbers will be dynamically added here -->
+      </div>
 
     </div>
   </div>
