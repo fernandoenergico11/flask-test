@@ -3,6 +3,16 @@
 <head>
   <!-- Add jQuery (make sure to include it before your custom script) -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Configurar el encabezado para permitir el acceso desde la página local -->
+  <script>
+    $(document).ready(function () {
+      $.ajaxSetup({
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
