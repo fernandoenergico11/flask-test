@@ -16,14 +16,17 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        numero1 = request.form.get('numero1')
-        numero2 = request.form.get('numero2')
+        numero1 = request.form.get('numeros')
+
+        
+        #numero1 = request.form.get('numero1')
+        #numero2 = request.form.get('numero2')
 
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
 
             cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
-            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero2,))
+            #cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero2,))
 
             cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s, %s)", (numero1, numero2))
 
