@@ -25,10 +25,11 @@ def actualizar_estado():
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
 
-            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
+            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1))
             #cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero2,))
 
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s, %s)", (numero1, numero2))
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s, %s)", (numero1))
+            #cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s, %s)", (numero1, numero2))
 
             miConexion.commit()
 
