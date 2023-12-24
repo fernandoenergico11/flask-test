@@ -13,24 +13,19 @@ def conectar_bd():
         db='bgumgxsdvc4biuaqa7lz'
     )
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-
-        numero1='004'
-        numero2='016'
+        numero1 = request.form.get('numero1')
+        numero2 = request.form.get('numero2')
 
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
 
-            # Insertar números en la tabla compra_boletas
             cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
             cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero2,))
 
-            # Actualizar estado en la tabla grupo
-           # Actualizar estado en la tabla grupo
             cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s, %s)", (numero1, numero2))
-
 
             miConexion.commit()
 
@@ -40,6 +35,7 @@ def actualizar_estado():
         return jsonify({"error": "Los números proporcionados no son válidos"})
     except Exception as e:
         return jsonify({"error": f"Error desconocido: {str(e)}"})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
