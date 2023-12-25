@@ -10,14 +10,18 @@ CORS(app)
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        numeros = request.json.get('numero')
+        pnumero = request.json.get('primer_numero')
+        snumero = request.json.get('segundo_numero')
 
         with conectar_bd() as connection:
             with connection.cursor() as cur:
-                # Utilizando placeholders para construir la consulta de manera segura
-                placeholders = ', '.join(['%s'] * len(numeros))
-                query = f"UPDATE grupo SET estado = 0 WHERE code IN ({placeholders})"
-                cur.execute(query, numeros)
+
+                cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (primer_numero,))
+                cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (segundo_numero,))
+                
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (primer_numero,))
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (segundo_numero,))
+
             connection.commit()
 
         return jsonify({"mensaje": "Estado actualizado exitosamente"})
