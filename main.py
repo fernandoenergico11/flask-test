@@ -6,7 +6,6 @@ app = Flask(__name__)
 CORS(app)
 
 # ... (código de conexión a la base de datos)
-
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
@@ -28,6 +27,10 @@ def actualizar_estado():
 
     except (ValueError, pymysql.Error) as error:
         return jsonify({"error": str(error)}), 400
+
+    except (ValueError, pymysql.Error) as error:
+    print("Error:", str(error))
+    return jsonify({"error": str(error)}), 500  # Cambiado el código de estado a 500
 
 if __name__ == '__main__':
     app.run(debug=True)
