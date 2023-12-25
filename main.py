@@ -30,7 +30,7 @@ def actualizar_estado():
             cur = miConexion.cursor()
 
             for num_aleatorio in numero:
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (num_aleatorio,))
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (num_aleatorio,))
             
             # cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero,))
 
