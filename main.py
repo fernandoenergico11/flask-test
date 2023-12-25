@@ -17,7 +17,8 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        numero1 = '017,001'
+        #numero1 = '017,001'
+        numero1 = request.form.get('numero1')
 
         # Dividir la cadena en partes utilizando la coma como separador
         numeros = [num.strip() for num in numero1.split(',')]
