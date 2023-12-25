@@ -34,7 +34,7 @@ def actualizar_estado():
 
             for numero in numeros:
                 #cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))
-                 cur.execute("UPDATE grupo SET estado = 0 WHERE code = 003")
+                 cur.execute("UPDATE grupo SET estado = 0 WHERE code = '003' ")
 
             miConexion.commit()
 
