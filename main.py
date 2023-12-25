@@ -23,11 +23,12 @@ def conectar_bd():
 def actualizar_estado():
     try:
         # Cambié la forma de obtener el número desde los datos del formulario
-        numeros = request.form.get('numero')
+        numeros = request.form.getlist('numero')  # Obtén una lista de números
 
         with conectar_bd() as connection:
             with connection.cursor() as cur:
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numeros,))
+                # Modificado para manejar múltiples valores
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s)" % (', '.join(['%s']*len(numeros))), numeros)
             connection.commit()
 
         return jsonify({"mensaje": "Estado actualizado exitosamente"})
