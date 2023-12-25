@@ -11,7 +11,7 @@ def conectar_bd():
         user='un7kcgf6ih5t59l7',
         passwd='RaJQ617Jy7Nc9gcXvE90',
         db='bgumgxsdvc4biuaqa7lz',
-        cursorclass=pymysql.cursors.DictCursor  # Utilizar cursor de tipo DictCursor para obtener resultados como diccionarios
+        cursorclass=pymysql.cursors.DictCursor
     )
 
 @app.route('/', methods=['POST'])
@@ -19,13 +19,17 @@ def actualizar_estado():
     try:
         numero1 = request.form.get('numero1')
         
+        # Dividir la cadena en partes utilizando la coma como separador
+        numeros = [num.strip() for num in numero1.split(',')]
+        
         with conectar_bd() as miConexion:
             with miConexion.cursor() as cur:
                 # Insertar números en la tabla compra_boletas
                 cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
 
                 # Actualizar estado en la tabla grupo
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero1,))
+                for num in numeros:
+                    cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (num,))
 
             miConexion.commit()
 
