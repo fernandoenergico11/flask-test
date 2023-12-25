@@ -28,8 +28,8 @@ def actualizar_estado():
                 cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
 
                 # Actualizar estado en la tabla grupo
-                for num in numeros:
-                    cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (num,))
+                #for num in numeros:
+                    #cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (num,))
 
             miConexion.commit()
 
