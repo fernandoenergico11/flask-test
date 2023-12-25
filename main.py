@@ -30,8 +30,9 @@ def actualizar_estado():
             cur = miConexion.cursor()
 
             # Utiliza parámetros en la consulta para evitar SQL injection
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))    
             cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero,))
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s, %s)", (numero[0], numero[1]))
+        
 
             miConexion.commit()
 
