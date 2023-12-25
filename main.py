@@ -9,15 +9,11 @@ CORS(app, resources={r"/*": {"origins": "https://tcode.up.railway.app/"}})  # Re
 def actualizar_estado():
     try:
         primer_numero = request.json.get('numero1')  # Actualizado para coincidir con el JSON del lado del cliente
-        segundo_numero = request.json.get('numero2')  # Actualizado para coincidir con el JSON del lado del cliente
 
         with conectar_bd() as connection:
     try:
         with connection.cursor() as cur:
             cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (primer_numero,))
-            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (segundo_numero,))
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (primer_numero,))
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (segundo_numero,))
         connection.commit()
     except pymysql.Error as e:
         connection.rollback()
