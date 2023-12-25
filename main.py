@@ -24,14 +24,14 @@ def conectar_bd():
 def actualizar_estado():
     try:
         # Cambia la forma de obtener el número cuando se envían datos JSON
-        numero = request.json.get('numero')
+        numeros = request.json.get('numero')  # Se espera una lista de números
 
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
 
-            for num_aleatorio in numero:
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (num_aleatorio,))
-            
+            for numero in numeros:
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))
+
             # cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero,))
 
             miConexion.commit()
