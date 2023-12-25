@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pymysql
+from contextlib import closing  # Importa la función closing para manejar mejor las conexiones
 
 app = Flask(__name__)
 CORS(app)
@@ -16,7 +17,8 @@ def conectar_bd():
         host=DB_HOST,
         user=DB_USER,
         passwd=DB_PASSWORD,
-        db=DB_NAME
+        db=DB_NAME,
+        cursorclass=pymysql.cursors.DictCursor  # Establece el tipo de cursor para obtener resultados como diccionarios
     )
 
 @app.route('/', methods=['POST'])
@@ -29,12 +31,10 @@ def actualizar_estado():
         if not numeros or not isinstance(numeros, list):
             raise ValueError("Se esperaba una lista de números en el campo 'numero'")
 
-        with conectar_bd() as miConexion:
-            cur = miConexion.cursor()
-
-            for numero in numeros:
-                #cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))
-                 cur.execute("UPDATE grupo SET estado = 0 WHERE code = '003' ")
+        with closing(conectar_bd()) as miConexion:
+            with miConexion.cursor() as cur:
+                for numero in numeros:
+                    cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))
 
             miConexion.commit()
 
