@@ -27,6 +27,8 @@ def actualizar_estado():
                 # Insertar números en la tabla compra_boletas
                 cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
 
+                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s)", (numero1,))
+
                 # Actualizar estado en la tabla grupo
                 #for num in numeros:
                     #cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (num,))
