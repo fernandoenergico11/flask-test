@@ -10,13 +10,14 @@ CORS(app)
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        # Cambiado a request.json para obtener datos JSON
         numeros = request.json.get('numero')
 
         with conectar_bd() as connection:
             with connection.cursor() as cur:
-                # Cambiado a utilizar IN para actualizar múltiples registros
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (numeros,))
+                # Utilizando placeholders para construir la consulta de manera segura
+                placeholders = ', '.join(['%s'] * len(numeros))
+                query = f"UPDATE grupo SET estado = 0 WHERE code IN ({placeholders})"
+                cur.execute(query, numeros)
             connection.commit()
 
         return jsonify({"mensaje": "Estado actualizado exitosamente"})
