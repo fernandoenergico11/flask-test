@@ -22,12 +22,13 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        numeros = request.get_json(numero)
+        # Cambié la forma de obtener el número desde los datos del formulario
+        numeros = request.form.get('numero')
 
-        with conectar_bd().cursor() as cur:
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numeros,))
-
-        conectar_bd().commit()
+        with conectar_bd() as connection:
+            with connection.cursor() as cur:
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numeros,))
+            connection.commit()
 
         return jsonify({"mensaje": "Estado actualizado exitosamente"})
 
