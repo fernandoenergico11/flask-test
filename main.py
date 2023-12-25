@@ -24,7 +24,7 @@ def conectar_bd():
 def actualizar_estado():
     try:
         # Cambia la forma de obtener el número cuando se envían datos JSON
-        numero = str(request.json.get('numero'))
+        numero = request.json.get('numero')
 
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
