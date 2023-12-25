@@ -5,30 +5,18 @@ import pymysql
 app = Flask(__name__)
 CORS(app)
 
-DB_HOST = 'bgumgxsdvc4biuaqa7lz-mysql.services.clever-cloud.com'
-DB_USER = 'un7kcgf6ih5t59l7'
-DB_PASSWORD = 'RaJQ617Jy7Nc9gcXvE90'
-DB_NAME = 'bgumgxsdvc4biuaqa7lz'
-
-def conectar_bd():
-    return pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        passwd=DB_PASSWORD,
-        db=DB_NAME,
-        cursorclass=pymysql.cursors.DictCursor
-    )
+# ... (código de conexión a la base de datos)
 
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        # Cambié la forma de obtener el número desde los datos del formulario
-        numeros = request.form.getlist('numero')  # Obtén una lista de números
+        # Cambiado a request.json para obtener datos JSON
+        numeros = request.json.get('numero')
 
         with conectar_bd() as connection:
             with connection.cursor() as cur:
-                # Modificado para manejar múltiples valores
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code IN (%s)" % (', '.join(['%s']*len(numeros))), numeros)
+                # Cambiado a utilizar IN para actualizar múltiples registros
+                cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (numeros,))
             connection.commit()
 
         return jsonify({"mensaje": "Estado actualizado exitosamente"})
