@@ -1,9 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import pymysql
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://www.podersobreruedas.com"}})  # Reemplaza con tu dominio
 
 # ... (código de conexión a la base de datos)
 @app.route('/', methods=['POST'])
