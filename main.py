@@ -10,8 +10,8 @@ CORS(app)
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        primer_numero = request.json.get('primer_numero')
-        segundo_numero = request.json.get('segundo_numero')
+        primer_numero = request.json.get('numero1')  # Actualizado para coincidir con el JSON del lado del cliente
+        segundo_numero = request.json.get('numero2')  # Actualizado para coincidir con el JSON del lado del cliente
 
         with conectar_bd() as connection:
             with connection.cursor() as cur:
