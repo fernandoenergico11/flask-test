@@ -25,9 +25,9 @@ def actualizar_estado():
         with conectar_bd() as miConexion:
             with miConexion.cursor() as cur:
                 # Insertar números en la tabla compra_boletas
-                cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
+                #cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
 
-                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s)", (numero1,))
+                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s)", (''numero1'',))
 
                 # Actualizar estado en la tabla grupo
                 #for num in numeros:
