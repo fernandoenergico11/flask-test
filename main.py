@@ -29,7 +29,7 @@ def actualizar_estado():
 
                 # Actualizar estado en la tabla grupo
                 for num in numeros:
-                    cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (num,))
+                    cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (num,))
 
             miConexion.commit()
 
