@@ -23,16 +23,15 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        # En lugar de 'numeros', parece que estás recibiendo un solo número. Cambia el nombre de la variable para reflejar esto.
-        numero = str(request.form.get('numero'))
+        # Cambia la forma de obtener el número cuando se envían datos JSON
+        numero = str(request.json.get('numero'))
 
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
 
             # Utiliza parámetros en la consulta para evitar SQL injection
-            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))    
-            #cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero,))
-        
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero,))
+            # cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero,))
 
             miConexion.commit()
 
