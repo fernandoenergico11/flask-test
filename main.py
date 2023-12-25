@@ -13,24 +13,17 @@ def actualizar_estado():
         segundo_numero = request.json.get('numero2')  # Actualizado para coincidir con el JSON del lado del cliente
 
         with conectar_bd() as connection:
-            with connection.cursor() as cur:
-
-                cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (primer_numero,))
-                cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (segundo_numero,))
-                
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (primer_numero,))
-                cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (segundo_numero,))
-
-            connection.commit()
-
-        return jsonify({"mensaje": "Estado actualizado exitosamente"})
-
-    except (ValueError, pymysql.Error) as error:
-        return jsonify({"error": str(error)}), 400
-
-    except (ValueError, pymysql.Error) as error:
-    print("Error:", str(error))
-    return jsonify({"error": str(error)}), 500  # Cambiado el código de estado a 500
-
+    try:
+        with connection.cursor() as cur:
+            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (primer_numero,))
+            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (segundo_numero,))
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (primer_numero,))
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (segundo_numero,))
+        connection.commit()
+    except pymysql.Error as e:
+        connection.rollback()
+        print("Error en la transacción:", str(e))
+        return jsonify({"error": "Error interno del servidor"}), 500
+        
 if __name__ == '__main__':
     app.run(debug=True)
