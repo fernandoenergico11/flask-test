@@ -17,21 +17,19 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        numero1 = request.form.get('numero1')
-        
+        numero1 = '017,001'
+
         # Dividir la cadena en partes utilizando la coma como separador
         numeros = [num.strip() for num in numero1.split(',')]
-        
+
         with conectar_bd() as miConexion:
             with miConexion.cursor() as cur:
                 # Insertar números en la tabla compra_boletas
-                #cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
+                cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
 
-                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s)", (''numero1'',))
-
-                # Actualizar estado en la tabla grupo
-                #for num in numeros:
-                    #cur.execute("UPDATE grupo SET estado = 0 WHERE code IN %s", (num,))
+                # Actualizar el estado en la tabla grupo
+                # Usar una tupla para los valores en la cláusula WHERE
+                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s, %s)", tuple(numeros))
 
             miConexion.commit()
 
