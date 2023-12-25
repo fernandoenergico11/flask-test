@@ -22,11 +22,10 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        data = request.get_json()
-        numeros = data.get('numero', [])
+        numeros = request.get_json(numero)
 
         with conectar_bd().cursor() as cur:
-            cur.executemany("UPDATE grupo SET estado = 0 WHERE code = %s", [(numero,) for numero in numeros])
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numeros,))
 
         conectar_bd().commit()
 
