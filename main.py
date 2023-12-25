@@ -24,8 +24,7 @@ def conectar_bd():
 def actualizar_estado():
     try:
         # En lugar de 'numeros', parece que estás recibiendo un solo número. Cambia el nombre de la variable para reflejar esto.
-        numero = request.form.get('numero')
-
+        numero = str(request.form.get('numero'))
 
         with conectar_bd() as miConexion:
             cur = miConexion.cursor()
