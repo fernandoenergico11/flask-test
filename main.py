@@ -1,30 +1,40 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import pymysql
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://tcode.up.railway.app/"}})  # Reemplaza con tu dominio
+CORS(app)
 
-# ... (código de conexión a la base de datos)
+def conectar_bd():
+    return pymysql.connect(
+        host='bgumgxsdvc4biuaqa7lz-mysql.services.clever-cloud.com',
+        user='un7kcgf6ih5t59l7',
+        passwd='RaJQ617Jy7Nc9gcXvE90',
+        db='bgumgxsdvc4biuaqa7lz'
+    )
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])  # Cambiado a POST
 def actualizar_estado():
     try:
-        primer_numero = request.form.get('numero1')  # Cambiado a request.form ya que estás enviando datos en el formulario
+        numero1 = request.form.get('numero1')  # Obtener el valor de 'numero1' desde la solicitud
 
-        # Reemplaza la siguiente línea con tu código de conexión a la base de datos
-        # with conectar_bd() as connection:
+        with conectar_bd() as miConexion:
+            cur = miConexion.cursor()
 
-        # Ejemplo de código de conexión simulado
-        connection = None  # Reemplaza con tu código real de conexión
-        with connection.cursor() as cur:
-            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (primer_numero,))
-        connection.commit()
-        
-        return jsonify({"success": True})  # Devuelve una respuesta JSON de éxito
+            # Insertar números en la tabla compra_boletas
+            cur.execute("INSERT INTO compra_boletas (code) VALUES (%s)", (numero1,))
 
+            # Actualizar estado en la tabla grupo
+            cur.execute("UPDATE grupo SET estado = 0 WHERE code = %s", (numero1,))
+
+            miConexion.commit()
+
+            return jsonify({"mensaje": "Estado actualizado exitosamente"})
+
+    except ValueError:
+        return jsonify({"error": "Los números proporcionados no son válidos"})
     except Exception as e:
-        print("Error en la transacción:", str(e))
-        return jsonify({"error": "Error interno del servidor"}), 500
+        return jsonify({"error": f"Error desconocido: {str(e)}"})
 
 if __name__ == '__main__':
     app.run(debug=True)
