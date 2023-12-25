@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://www.podersobreruedas.com"}})  # Reemplaza con tu dominio
+CORS(app, resources={r"/*": {"origins": "https://tcode.up.railway.app/"}})  # Reemplaza con tu dominio
 
 # ... (código de conexión a la base de datos)
 @app.route('/', methods=['POST'])
