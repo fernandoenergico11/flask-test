@@ -27,7 +27,7 @@ def actualizar_estado():
             with miConexion.cursor() as cur:
                 # Actualizar el estado en la tabla grupo
                 # Usar una tupla para los valores en la cláusula WHERE
-                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s)", tuple(numeros))
+                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s, %s, %s)", tuple(numeros))
 
             miConexion.commit()
 
