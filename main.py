@@ -17,7 +17,6 @@ def conectar_bd():
 @app.route('/', methods=['POST'])
 def actualizar_estado():
     try:
-        #numero1 = '017,001'
         numero1 = request.form.get('numero1')
 
         # Dividir la cadena en partes utilizando la coma como separador
@@ -26,8 +25,10 @@ def actualizar_estado():
         with conectar_bd() as miConexion:
             with miConexion.cursor() as cur:
                 # Actualizar el estado en la tabla grupo
-                # Usar una tupla para los valores en la cláusula WHERE
-                cur.execute("UPDATE grupo SET estado = '0' WHERE code IN (%s, %s, %s)", tuple(numeros))
+                # Usar una cadena de placeholders para los valores en la cláusula WHERE
+                placeholders = ', '.join(['%s'] * len(numeros))
+                query = f"UPDATE grupo SET estado = '0' WHERE code IN ({placeholders})"
+                cur.execute(query, numeros)
 
             miConexion.commit()
 
