@@ -20,7 +20,7 @@ def actualizar_estado():
         numero1 = request.form.get('numero1')
 
         # Dividir la cadena en partes utilizando la coma como separador
-        numeros = [num.strip() for num in numero1.split(', ')]
+        numeros = [num.strip() for num in numero1.split(',')]
 
         with conectar_bd() as miConexion:
             with miConexion.cursor() as cur:
